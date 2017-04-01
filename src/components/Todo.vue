@@ -6,11 +6,11 @@
 	</div>
 	<div class="content">
 		{{todo.desc}}
-		<i class='remove red icon right floated'></i>
+		<i class='remove red icon right floated' @click="deleteTodo(todo)"></i>
 		<i class='write icon blue right floated' @click="showForm"></i>
 	</div>
-	<div v-if="todo.done" class="ui bottom blue attached button">Done <i class="checkmark icon"></i></div>
-	<div v-if='!todo.done' class="ui bottom green attached button">Complete</div>
+	<div v-if="todo.done" class="ui bottom blue attached button" disabled>Done <i class="checkmark icon"></i></div>
+	<div v-if='!todo.done' class="ui bottom green attached button" @click="todo.done=true">Complete</div>
  </div>
   <div class="ui centered raised card" v-if="isEditing">
 	  <div class="content">
@@ -44,7 +44,10 @@
 			},
 			hideForm(){
 				this.isEditing=false;
-			}
+			},
+			deleteTodo(todo){
+				this.$emit('delete-todo',todo);
+			},
 		}
 	};
 </script>
